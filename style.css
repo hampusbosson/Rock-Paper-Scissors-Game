@@ -1,0 +1,112 @@
+html, body {
+    height: 100%;
+    margin: 0px;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    margin: 0px;
+    padding: 0px;
+    font-family: 'Roboto', sans-serif;
+}
+
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    font-size: 50px;
+    padding: 50px;
+    background-color: #111720;
+    color: yellow;
+}
+
+.header-text {
+    font-family: 'Orbitron', sans-serif;
+    word-spacing: 30px;
+}
+
+.main-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #222831;
+    flex: 1;
+    padding-top: 50px;
+}
+
+.text-1 {
+    font-size: 35px;
+    color: white;
+}
+
+.text-2 {
+    font-size: 22px;
+    color: white;
+}
+
+.text-1, .text-2 {
+    margin: 5px;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.score-table {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 120px;
+    margin-top: 50px;
+    color: white;
+}
+
+.scorebox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 22px;
+    gap: 35px;
+}
+
+.p-pick, .c-pick {
+    font-size: 85px;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 50px;
+    margin-top: 50px;
+}
+
+.button-square {
+    width: 160px;
+    height: 160px;
+    border-radius: 20px;
+    background-color: rgb(57 62 70);
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.1s ease;
+}
+
+.button-square:active {
+    background-color: rgb(74, 81, 92);
+}
+
+.sign {
+    font-size: 105px;
+}
+
+
+
+
+
+
+
+
+

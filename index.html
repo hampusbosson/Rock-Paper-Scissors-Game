@@ -3,8 +3,46 @@
 <head>
   <meta charset="UTF-8">
   <title>Rock Paper Scissors Game</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
 </head>
 <body>
+  <div class="header">
+    <div class="header-text">ROCK PAPER SCISSORS</div>
+  </div>
+  <div class="main-box">
+    <div class="content">
+    <div class="text-1">Choose your weapon!</div>
+    <div class="text-2">First to score 5 points wins the game</div>
+  </div>
+    <div class="score-table">
+          <div class="scorebox">
+            <div class="p-pick">?</div>
+            <div class="player-points">Player: 0</div>
+          </div>
+          <div class="scorebox">
+            <div class="c-pick">?</div>
+            <div class="computer">Computer: 0</div>
+          </div>
+    </div>
+    <div class="buttons">
+      <button class="button-square" id="rockBtn">
+        <div class="sign">✊</div>
+      </button>
+      <button class="button-square" id="paperBtn">
+        <div class="sign">✋</div>
+      </button>
+      <button class="button-square" id="scissorsBtn">
+        <div class="sign">✌</div>
+      </button>
+    </div>
+    <div class="footer">
+    </div>
+  </div>
+
+
+
+
   <script src="main.js"></script>
 </body>
 </html>
