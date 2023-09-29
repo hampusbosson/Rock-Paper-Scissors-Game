@@ -4,39 +4,158 @@ function getComputerChoice() {
     return randomElement;
 }
 
-function toLowerCase(word) {
-    let selectionLowerCase = word.toLowerCase();
-    let firstCharUpper = selectionLowerCase.charAt(0).toUpperCase();
-    let remainder = selectionLowerCase.slice(1);
-    let finishedWord = firstCharUpper + remainder;
-    return finishedWord;
-}
+let playerScore = 0;
+let computerScore = 0;
+let roundWinner = "";
 
 function playRound(playerSelection, computerSelection) {
-    if ((pSelection === "Rock" && computerSelection === "Scissors") 
-    || (pSelection === "Paper" && computerSelection === "Rock")
-    || (pSelection === "Scissors" && computerSelection === "Paper")) {
-        return `You Win! ${pSelection} beats ${computerSelection}`;
+    if ((playerSelection === "Rock" && computerSelection === "Scissors") 
+    || (playerSelection === "Paper" && computerSelection === "Rock")
+    || (playerSelection === "Scissors" && computerSelection === "Paper")) {
+        playerScore ++;
+        roundWinner = "Player";
     } 
-    else if ((pSelection === "Rock" && computerSelection === "Paper") 
-    || (pSelection === "Paper" && computerSelection === "Scissors")
-    || (pSelection === "Scissors" && computerSelection === "Rock")) {
-        return `You Lose! ${computerSelection} beats ${pSelection}`;
+    else if ((playerSelection === "Rock" && computerSelection === "Paper") 
+    || (playerSelection === "Paper" && computerSelection === "Scissors")
+    || (playerSelection === "Scissors" && computerSelection === "Rock")) {
+        computerScore ++;
+        roundWinner = "Computer";
     }
-    else if (pSelection === computerSelection) {
-        return "It's a tie!"
+    else if (playerSelection === computerSelection) {
+        roundWinner = "Tie";
     }
 }
 
-function getPlayerSelection(callback) {
-    const rock = document.querySelector('#rockBtn');
-    const paper = document.querySelector('#paperBtn');
-    const scissors = document.querySelector('#scissorsBtn');
+function isGameOver() {
+    return (playerScore === 5 || computerScore === 5);
 
-    rock.addEventListener('click', () => callback('Rock'));
-    paper.addEventListener('click', () => callback('Paper'));
-    scissors.addEventListener('click', () => callback('Scissors'));
 }
+
+const rockBtn = document.getElementById('rockBtn');
+const paperBtn = document.getElementById('paperBtn');
+const scissorsBtn = document.getElementById('scissorsBtn');
+const playerPoints = document.getElementById('p-points');
+const computerPoints = document.getElementById('c-points');
+const playerSymbol = document.getElementById('p-symbol');
+const computerSymbol = document.getElementById('c-symbol');
+const roundResult = document.getElementById('upper-text');
+const xBeatsY = document.getElementById('lower-text');
+
+
+
+rockBtn.addEventListener('click', () => handleClick('Rock'));
+paperBtn.addEventListener('click', () => handleClick('Paper'));
+scissorsBtn.addEventListener('click', () => handleClick('Scissors'));
+
+
+
+function handleClick(playerSelection) {
+    const computerChoice = getComputerChoice();
+
+    playRound(playerSelection, computerChoice);
+    updateScore();
+    roundStats(roundWinner, playerSelection, computerChoice);
+    updateSymbol(playerSelection, computerChoice);
+
+
+    if (isGameOver()) {
+        playAgain();
+        disableButtons();
+        return;
+    }
+}
+
+function updateScore() {
+    if (roundWinner === 'Tie') {
+        roundResult.textContent = "It's a tie!";
+    } else if (roundWinner === 'Player') {
+        roundResult.textContent = 'You won!';
+    } else if (roundWinner === 'Computer') {
+        roundResult.textContent = 'You lost!';
+    }
+
+    playerPoints.textContent = `Player: ${playerScore}`;
+    computerPoints.textContent = `Computer: ${computerScore}`;
+}
+
+function roundStats(roundWinner, playerSelection, computerSelection) {
+    if (roundWinner === 'Tie') {
+        xBeatsY.textContent = `${playerSelection} ties with ${computerSelection}`;
+    } else if (roundWinner === 'Player') {
+        xBeatsY.textContent = `${playerSelection} beats ${computerSelection}`;
+    } else if (roundWinner === 'Computer') {
+        xBeatsY.textContent = `${playerSelection} is beaten by ${computerSelection}`;
+    }
+}
+
+function updateSymbol(playerSelection, computerSelection) {
+    switch (playerSelection) {
+        case 'Rock':
+            playerSymbol.textContent = '✊';
+            break
+        case 'Paper':
+            playerSymbol.textContent = '✋';
+            break
+        case 'Scissors':
+            playerSymbol.textContent = '✌';
+            break;
+    }
+
+    switch (computerSelection) {
+        case 'Rock':
+            computerSymbol.textContent = '✊';
+            break
+        case 'Paper':
+            computerSymbol.textContent = '✋';
+            break
+        case 'Scissors':
+            computerSymbol.textContent = '✌';
+            break
+    }
+}
+
+function gameWinner() {
+    if (playerScore == 5) {
+        return 'Player';
+    } else if (computerScore == 5) {
+        return 'Computer';
+    }
+}
+
+function resetScore() {
+    playerScore = 0;
+    computerScore = 0;
+}
+
+function playAgain() {
+    if(isGameOver() && gameWinner() === 'Player') {
+        roundResult.textContent = 'You won the game. Congratulations!';
+        xBeatsY.textContent = 'Refresh the browser to play again';
+    } else if (isGameOver() && gameWinner() === 'Computer') {
+        roundResult.textContent = 'You got beaten by the computer. Pathetic!';
+        xBeatsY.textContent = 'Refresh the browser to play again';
+    }
+
+    let playAgainButton = document.createElement('button');
+    playAgainButton.className = 'play-again-button';
+    playAgainButton.textContent = 'Play Again';
+
+    playAgainButton.onclick = function() {
+        location.reload();
+    };
+
+    xBeatsY.innerHTML = '';
+    xBeatsY.appendChild(playAgainButton);
+}
+
+function disableButtons() {
+    rockBtn.disabled = true;
+    paperBtn.disabled = true;
+    scissorsBtn.disabled = true;
+}
+
+
+
 
 /*function game() {
     for (let i = 0; i < 5; i++) {
